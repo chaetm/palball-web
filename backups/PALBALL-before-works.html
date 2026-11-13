@@ -1,0 +1,474 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#181818">
+  <meta name="description" content="PALBALL은 마침표의 완결성을 지향하는 디자인 실험실이다. 그래픽과 편집디자인의 작업과 실험을 기록한다.">
+  <meta property="og:title" content="PALBALL — Graphic & Editorial Design">
+  <meta property="og:description" content="마침표의 완결성을 지향하는 디자인 실험실.">
+  <title>PALBALL — Graphic & Editorial Design</title>
+  <link rel="icon" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA2NCA2NCI+PHJlY3Qgd2lkdGg9IjY0IiBoZWlnaHQ9IjY0IiBmaWxsPSIjMTgxODE4Ii8+PHRleHQgeD0iMzIiIHk9IjQ1IiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmaWxsPSIjZmZmZmZmIiBmb250LWZhbWlseT0iQXJpYWwsc2Fucy1zZXJpZiIgZm9udC13ZWlnaHQ9ImJvbGQiIGZvbnQtc2l6ZT0iNDAiPlA8L3RleHQ+PC9zdmc+" type="image/svg+xml">
+  <style>
+:root{--bg:#181818;--fg:#ffffff;--gutter:40px;--gap:24px;--small:11px;--header-height:100px;--ease:cubic-bezier(.22,1,.36,1);color-scheme:dark}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:calc(var(--header-height) + 24px)}
+body{margin:0;background:var(--bg);color:var(--fg);font-family:Arial,"Helvetica Neue","Apple SD Gothic Neo","Malgun Gothic",sans-serif;font-weight:400;-webkit-font-smoothing:antialiased;font-kerning:normal;font-variant-ligatures:none}
+body.dialog-open{overflow:hidden}
+button,a{-webkit-tap-highlight-color:transparent}
+button{font:inherit;color:inherit;background:none;border:0;border-radius:0;cursor:pointer;padding:0}
+a{color:inherit;text-decoration:none}
+button:focus-visible,a:focus-visible{outline:1px solid var(--fg);outline-offset:7px}
+a:hover,button:not(.logo-toggle):hover{text-decoration:underline;text-underline-offset:5px}
+p,h1,h2,h3{margin:0;font-weight:400}
+img,svg{display:block;max-width:100%}
+::selection{background:#fff;color:#181818}
+[hidden]{display:none!important}
+.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap}
+.skip-link{position:fixed;top:16px;left:40px;z-index:50;background:var(--bg);padding:12px;transform:translateY(-160%)}
+.skip-link:focus{transform:translateY(0)}
+.grid{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:var(--gap)}
+.site-header{position:sticky;top:0;z-index:20;background:var(--bg);padding:30px var(--gutter) 24px;min-height:var(--header-height);font-size:var(--small);line-height:1.4;letter-spacing:.025em;align-items:start}
+.wordmark{font-size:22px;letter-spacing:-.5px;font-weight:800;line-height:1}
+.site-header>.wordmark{grid-column:1/4}
+.header-description{grid-column:4/7}
+.site-header nav{grid-column:10/13;display:flex;justify-content:space-between;gap:18px}
+.site-header nav a{white-space:nowrap}
+.hero{padding:0 var(--gutter) 40px;min-height:calc(100svh - var(--header-height));display:flex;flex-direction:column}
+.hero-stage{position:relative;display:flex;align-items:center;justify-content:center;flex:1;min-height:430px;padding:42px 0 64px}
+.logo-toggle{display:flex;width:100%;height:100%;align-items:center;justify-content:center;position:absolute;inset:0}
+.logo-toggle svg{width:100%;height:100%;overflow:visible;fill:var(--fg)}
+.logo-toggle:focus-visible{outline-offset:0}
+.hero-caption{font-size:var(--small);line-height:1.55;letter-spacing:.035em;min-height:45px}
+.hero-caption>p:nth-child(1){grid-column:1/4}
+.hero-caption>p:nth-child(2){grid-column:4/7}
+.hero-scroll{grid-column:10/13;text-align:right;justify-self:end}
+.section{padding:155px var(--gutter) 0;scroll-margin-top:0}
+.section-heading{align-items:start;margin-bottom:95px}
+.section-marker{grid-column:1/4;font-size:var(--small);letter-spacing:.035em;padding-top:9px}
+.section-heading h2{grid-column:4/10;font-size:clamp(64px,7.5vw,120px);line-height:1.02;letter-spacing:.008em}
+.section-heading h2,.detail-heading h2{font-kerning:none}
+.heading-line{white-space:nowrap}
+.round-separator{display:inline-block;inline-size:.5em;block-size:.5em;border-radius:50%;background:currentColor;vertical-align:.1em;margin-inline:.6em}
+#custom-cursor{display:contents;pointer-events:none}
+#custom-cursor span{position:fixed;left:var(--cursor-x,0px);top:var(--cursor-y,0px);inline-size:18px;block-size:18px;transform:translate(-50%,-50%);border-radius:50%;pointer-events:none;z-index:2147483647;background:var(--bg);mix-blend-mode:color-dodge}
+#custom-cursor span:first-child{background:var(--fg);mix-blend-mode:difference}
+#custom-cursor span:last-child{mix-blend-mode:lighten}
+@media(hover:hover) and (pointer:fine){.has-custom-cursor,.has-custom-cursor *{cursor:none!important}}
+.full-stop{display:inline-block;inline-size:.16em;block-size:.16em;margin-inline-start:.055em;border-radius:50%;background:currentColor;vertical-align:baseline}
+.section-aside{grid-column:10/13;font-size:var(--small);line-height:1.5;letter-spacing:.025em;padding-top:9px}
+.archive-toolbar{font-size:var(--small);line-height:1.5;margin-bottom:68px;align-items:start}
+.archive-toolbar>p{grid-column:1/4}
+.filters{grid-column:4/10;display:flex;gap:25px;flex-wrap:wrap}
+.filters button{white-space:nowrap}
+.filters button[aria-pressed=true],.view-switch button[aria-pressed=true]{text-decoration:underline;text-underline-offset:5px}
+.view-switch{grid-column:10/13;display:flex;gap:24px;justify-content:flex-end}
+.index-head{font-size:var(--small);letter-spacing:.025em;margin-bottom:22px}
+.index-head>p:nth-child(1){grid-column:1/4}
+.index-head>p:nth-child(2){grid-column:4/7}
+.index-head>p:nth-child(3){grid-column:9/11}
+.index-head>p:nth-child(4){grid-column:12/13;text-align:right}
+.project-row{width:100%;text-align:left;align-items:baseline;padding:24px 0 42px}
+.project-number{grid-column:1/4;font-size:13px}
+.project-name{grid-column:4/9;font-size:clamp(32px,3.1vw,54px);line-height:1;letter-spacing:-.02em}
+.project-category{grid-column:9/11;font-size:var(--small);line-height:1.6}
+.project-type{grid-column:11/13;text-align:right;font-size:var(--small)}
+.project-row .project-name{display:inline-block;transition:transform .45s var(--ease);transform-origin:left}
+.project-row:hover{text-decoration:none!important}
+.project-row:hover .project-name{transform:translateX(10px)}
+.project-row:hover .project-name:after{content:' ↗'}
+.gallery-preview{display:none}
+.project-list.gallery{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:var(--gap)}
+.gallery .project-row{display:flex;flex-wrap:wrap;gap:14px;padding-top:0;align-items:baseline}
+.gallery .gallery-preview{display:flex;width:100%;height:340px;align-items:center;padding:45px 0 65px}
+.gallery .gallery-preview img{width:100%}
+.gallery .project-number{font-size:var(--small)}
+.gallery .project-name{font-size:30px;margin-right:auto}
+.gallery .project-category{width:100%;padding-left:28px}
+.gallery .project-type{font-size:var(--small)}
+.gallery .project-row:hover .project-name{transform:none}
+.archive-end{font-size:var(--small);line-height:1.6;margin-top:80px}
+.archive-end>p:nth-child(1){grid-column:1/4}
+.archive-end>p:nth-child(2){grid-column:4/9}
+.archive-end>p:nth-child(3){grid-column:10/13;text-align:right}
+.empty-state{margin-left:calc((100% + var(--gap))/4);font-size:20px;line-height:1.7;padding:25px 0}
+.empty-state button{margin-top:20px;font-size:var(--small)}
+.studio-section{padding-top:220px}
+.statement{grid-column:4/12;font-size:clamp(23px,2.5vw,40px);letter-spacing:-.025em;line-height:1.55;word-break:keep-all}
+.statement p+p{margin-top:40px}
+.contact-section{padding-top:220px;padding-bottom:140px}
+.contact-details{font-size:var(--small);line-height:1.6;letter-spacing:.02em}
+.contact-details>p:first-child{grid-column:1/4}
+.contact-person{grid-column:4/7;font-size:18px;line-height:1.6;letter-spacing:-.015em}
+.contact-person span{font-size:var(--small);letter-spacing:.02em}
+.contact-links{grid-column:7/13;display:flex;flex-direction:column;align-items:flex-start;gap:15px}
+.contact-links>a:first-child{font-size:clamp(20px,2.6vw,42px);letter-spacing:-.015em;line-height:1.3}
+#copy-email{margin-top:10px}
+#copy-status{min-height:18px}
+.site-footer{font-size:10px;letter-spacing:.025em;padding:30px var(--gutter) 35px;align-items:end}
+.site-footer>.wordmark{grid-column:1/4}
+.site-footer>p:nth-child(2){grid-column:4/7}
+.site-footer>p:nth-child(3){grid-column:7/10}
+.site-footer>a:last-child{grid-column:10/13;text-align:right}
+dialog{position:fixed;inset:0;margin:0;width:100%;max-width:none;height:100%;max-height:none;background:var(--bg);color:var(--fg);border:0;padding:0;overflow-y:auto}
+dialog::backdrop{background:var(--bg)}
+.project-detail{padding:30px var(--gutter) 35px}
+.detail-header{font-size:var(--small);line-height:1.5;align-items:start}
+.detail-header>span{grid-column:1/4}
+.detail-header>p{grid-column:4/10}
+.detail-header>button{grid-column:10/13;justify-self:end}
+.detail-heading{margin-top:110px}
+.detail-heading>p{grid-column:1/4;font-size:var(--small);padding-top:10px}
+.detail-heading h2{grid-column:4/13;font-size:clamp(50px,8vw,130px);letter-spacing:.008em;line-height:1.02}
+.detail-description{margin-top:60px;font-size:18px;line-height:1.8;word-break:keep-all}
+.detail-description>p:first-child{grid-column:4/11}
+.detail-meta{margin-top:50px;font-size:var(--small);line-height:1.8}
+.detail-meta>p:first-child{grid-column:4/7}
+.detail-meta>p:last-child{grid-column:7/11}
+.detail-logo{display:flex;min-height:450px;align-items:center;justify-content:center;padding:90px 0 45px}
+.detail-logo img{width:100%;max-height:460px;object-fit:contain}
+.detail-logo.stacked img{max-width:740px}
+.image-caption{font-size:var(--small);line-height:1.5;padding-bottom:40px}
+.image-caption>p:first-child{grid-column:1/4}
+.image-caption>p:last-child{grid-column:4/13}
+.detail-footer{display:flex;justify-content:space-between;font-size:var(--small);margin-top:100px}
+@media(min-width:1700px){:root{--gutter:56px;--gap:30px;--small:12px;--header-height:110px}.hero-stage{min-height:600px}.site-header{min-height:110px}.hero{min-height:calc(100svh - 110px)}}
+@media(max-width:1000px){:root{--gutter:28px;--gap:20px;--header-height:112px}.site-header nav{flex-direction:column;align-items:flex-end;gap:5px}.hero-stage{min-height:400px}.section-heading h2{font-size:80px}.section-heading h2{grid-column:4/11}.section-aside{grid-column:11/13;font-size:9px}.filters{gap:17px}.view-switch{gap:14px}.project-category{grid-column:9/12}.project-type{grid-column:12/13}.statement{grid-column:4/13}.contact-links{grid-column:7/13}.gallery .gallery-preview{height:240px}}
+@media(max-width:680px){:root{--gutter:20px;--gap:14px;--small:10px;--header-height:117px}html{scroll-padding-top:calc(var(--header-height) + 20px)}.grid{grid-template-columns:repeat(4,minmax(0,1fr))}.site-header{padding-top:23px;min-height:117px}.site-header>.wordmark{grid-column:1/3;font-size:23px}.header-description{grid-column:3/5;text-align:right;font-size:9px}.site-header nav{grid-column:1/5;flex-direction:row;justify-content:flex-start;gap:28px;padding-top:8px}.hero{min-height:calc(100svh - 117px);padding-bottom:28px}.hero-stage{min-height:310px;padding:0}.logo-toggle svg{height:100%}.hero-caption{row-gap:28px;font-size:9px}.hero-caption>p:nth-child(1){grid-column:1/3}.hero-caption>p:nth-child(2){grid-column:3/5;text-align:right}.hero-scroll{grid-column:3/5;align-self:end}.section{padding-top:110px}.section-heading{row-gap:30px;margin-bottom:60px}.section-marker{grid-column:1/5;padding:0}.section-heading h2{grid-column:1/5;font-size:clamp(64px,15vw,98px)}.section-aside{display:none}.archive-toolbar{row-gap:22px;margin-bottom:50px}.archive-toolbar>p{grid-column:1/5}.filters{grid-column:1/5;gap:25px;row-gap:16px}.view-switch{grid-column:1/5;justify-content:flex-start;gap:22px}.index-head{grid-template-columns:28px 1fr auto;gap:12px;font-size:9px}.index-head>p:nth-child(1){grid-column:1}.index-head>p:nth-child(2){grid-column:2}.index-head>p:nth-child(3){display:none}.index-head>p:nth-child(4){grid-column:3}.project-row{grid-template-columns:28px 1fr auto;gap:12px;row-gap:14px;padding:14px 0 25px}.project-number{grid-column:1;font-size:10px}.project-name{grid-column:2;font-size:32px}.project-category{grid-column:2;grid-row:2;font-size:9px}.project-type{grid-column:3;grid-row:1;font-size:9px}.project-list.gallery{grid-template-columns:1fr}.gallery .gallery-preview{height:230px;padding:30px 0}.gallery .project-category{padding-left:24px}.archive-end{row-gap:24px;margin-top:65px;font-size:9px}.archive-end>p:nth-child(1){grid-column:1/3}.archive-end>p:nth-child(2){grid-column:3/5}.archive-end>p:nth-child(3){grid-column:1/5;text-align:left}.empty-state{margin:0;font-size:17px}.studio-section{padding-top:140px}.studio-copy{row-gap:32px}.statement{grid-column:1/5;font-size:clamp(22px,5.7vw,32px);line-height:1.65;letter-spacing:-.025em}.desktop-break{display:none}.statement p+p{margin-top:28px}.contact-section{padding-top:140px;padding-bottom:80px}.contact-details{row-gap:30px}.contact-details>p:first-child{grid-column:1/5}.contact-person{grid-column:1/5;font-size:18px}.contact-links{grid-column:1/5;gap:17px}.contact-links>a:first-child{font-size:26px}.site-footer{padding-top:20px;row-gap:30px;font-size:8px}.site-footer>.wordmark{grid-column:1/3;font-size:22px}.site-footer>p:nth-child(2){grid-column:1/3;grid-row:2}.site-footer>p:nth-child(3){grid-column:3/5;grid-row:2;text-align:right}.site-footer>a:last-child{grid-column:3/5;grid-row:1;align-self:center;font-size:9px}.detail-header{row-gap:20px}.detail-header>span{grid-column:1/3}.detail-header>p{grid-column:1/4;grid-row:2}.detail-header>button{grid-column:3/5;grid-row:1}.detail-heading{margin-top:75px;row-gap:25px}.detail-heading>p{grid-column:1/5}.detail-heading h2{grid-column:1/5;font-size:15vw}.detail-description{margin-top:35px;font-size:16px}.detail-description>p:first-child{grid-column:1/5}.detail-meta{margin-top:35px}.detail-meta>p:first-child{grid-column:1/3}.detail-meta>p:last-child{grid-column:3/5}.detail-logo{min-height:250px;padding:60px 0 35px}.detail-logo.stacked img{max-width:85%;max-height:300px}.image-caption{font-size:9px;row-gap:12px}.image-caption>p:first-child{grid-column:1/5}.image-caption>p:last-child{grid-column:1/5}.detail-footer{margin-top:60px;font-size:9px}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*::before,*::after{transition:none!important;animation:none!important}}
+
+</style>
+  
+  
+  
+</head>
+<body>
+  <a class="skip-link" href="#work">작업 목록으로 바로가기</a>
+  <header class="site-header grid">
+    <a class="wordmark" href="#top" aria-label="PALBALL 처음으로">PALBALL</a>
+    <p class="header-description">GRAPHIC &<br>EDITORIAL DESIGN</p>
+    <nav aria-label="주요 메뉴">
+      <a href="#work">WORK <span class="work-count">(01)</span></a>
+      <a href="#studio">STUDIO</a>
+      <a href="#contact">CONTACT</a>
+    </nav>
+  </header>
+
+  <main id="top">
+    <section class="hero" aria-labelledby="hero-title">
+      <h1 id="hero-title" class="sr-only">PALBALL. 마침표의 완결성을 지향하는 디자인 실험실.</h1>
+      <div class="hero-stage">
+        <button class="logo-toggle" id="logo-toggle" type="button" aria-label="로고 배리에이션 전환. 현재 가로형" aria-describedby="logo-hint" aria-pressed="false">
+          <svg id="interactive-logo" viewBox="0 0 1037 237" role="img" aria-label="PALBALL 로고"><title>PALBALL</title></svg>
+          <noscript><img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAzNyIgaGVpZ2h0PSIyMzciIHZpZXdCb3g9IjAgMCAxMDM3IDIzNyIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZD0iTTE3MS4wNzMgMTE0LjUzMUMxNjkuNDY3IDExOC44MTMgMTYzLjA0OCAxMzIuMDE0IDE0OS4xMzQgMTM3LjE4OEMxNDEuNjM5IDE0MC4wNCAxMzQuMTUxIDE0MC4zOTQgMTI2LjMwMiAxNDAuMzk0SDk1LjYyMlYxODEuNDI2SDU1LjY2MzVWNTUuNDg1NUgxMjcuNTQ4QzEzOS44NTUgNTUuNDg1NSAxNTEuMjcxIDU2LjM3NzMgMTYxLjA4IDY0Ljk0MTlDMTczLjc0MSA3NS44MjA4IDE3NC4xMDIgOTAuOTg5NCAxNzQuMTAyIDk2LjUxNzNDMTc0LjEwMiA5OS4wMTYgMTczLjkyNSAxMDcuMDQyIDE3MS4wNzMgMTE0LjUzOFYxMTQuNTMxWk0xMzIuNTQ0IDg5LjAyMTVDMTI4LjYxNiA4MS44ODY4IDEyMC4yMzcgODEuODg2OCAxMTguMDkyIDgxLjg4NjhIOTUuNjE0N1YxMTRIMTE4LjI2OUMxMTguODA3IDExNCAxMjIuNzI4IDExMy44MjMgMTI1LjQwMyAxMTIuOTMyQzEyOC45NyAxMTEuNjg2IDEzNC40OTcgMTA3Ljc1NyAxMzQuNDk3IDk3Ljc3MDNDMTM0LjQ5NyA5Ni4zNDA0IDEzNC40OTcgOTIuNTk2MiAxMzIuNTM3IDg5LjAyODlMMTMyLjU0NCA4OS4wMjE1WiIgZmlsbD0iI2ZmZmZmZiIvPgo8cGF0aCBkPSJNMjU2LjI4OSAxODEuNDMzTDI1MC43NjIgMTYzLjc3NEgyMDYuODgzTDIwMS4zNTUgMTgxLjQzM0gxNTguNTQ1TDIwNi43MDYgNTUuNDg1NUgyNTIuMDE1TDI5OS4xMDcgMTgxLjQzM0gyNTYuMjk3SDI1Ni4yODlaTTIyOS4xNzYgOTEuMzQzMkwyMTUuNDM5IDEzNS43NjZIMjQyLjU1MkwyMjkuMTc2IDkxLjM0MzJaIiBmaWxsPSIjZmZmZmZmIi8+CjxwYXRoIGQ9Ik0zMDcuODMzIDE4MS40MzNWNTUuNDg1NUgzNDcuNjE1VjE0OS42ODFIMzk2LjMxNFYxODEuNDMzSDMwNy44NEgzMDcuODMzWiIgZmlsbD0iI2ZmZmZmZiIvPgo8cGF0aCBkPSJNNTE3LjM3NiAxNzEuNjIzQzUxMy45ODYgMTc1LjAxNCA1MTAuMjQyIDE3Ni42MiA1MDguNjM2IDE3Ny4zMzVDNTAwLjc4NyAxODAuOTAzIDQ5My44MyAxODEuNDQxIDQ4NS42MjcgMTgxLjQ0MUg0MDguNTdWNTUuNDg1NUg0ODMuMTI5QzQ4Ni42OTYgNTUuNDg1NSA0OTAuMjYzIDU1LjY2MjQgNDkzLjgzIDU2LjIwMDRDNTAxLjMyNSA1Ny4yNjkyIDUxMC4yNDIgNjAuNDgyNyA1MTUuNTkzIDY2LjAxMDZDNTE2LjY2MSA2Ny4yNTYzIDUxOC44MDYgNjkuNzU0OSA1MjAuNTg5IDczLjUwNjVDNTIyLjczNCA3Ny43ODg4IDUyMy44MDMgODIuNjAxNyA1MjMuODAzIDg3LjQyMjFDNTIzLjgwMyA5MS41Mjc1IDUyMi41NTcgMTAzLjQ3NSA1MTIuMzg3IDExMS41MDlDNTEwLjQyNiAxMTIuOTMyIDUwOC40NjYgMTE0LjE4NSA1MDQgMTE2LjE0NUw1MDkuMzUxIDExNy43NTJDNTEzLjI3MSAxMTguOTk4IDUxNi4zMDggMTIxLjE0MiA1MTkuMzM2IDEyNC4xNzJDNTI3LjAwOCAxMzIuMTk4IDUyNy4xODUgMTQxLjMwMSA1MjcuMTg1IDE0NS4zOTlDNTI3LjE4NSAxNDkuNDk3IDUyNi42NDcgMTYyLjcwNSA1MTcuMzc2IDE3MS42MjNaTTQ4NC45MTIgMTM1LjQwNEM0ODEuMzQ2IDEyOS41MTUgNDczLjg1MSAxMjkuNjkyIDQ3Mi4yNTEgMTI5LjY5Mkg0NDguMTY3VjE1NC4zMUg0NzMuMTQzQzQ3Ny42MDIgMTU0LjMxIDQ4MS43MDcgMTUzLjQxOCA0ODQuNTU5IDE0OS4zMTNDNDg2LjUxOSAxNDYuNDYgNDg2LjY5NiAxNDMuNiA0ODYuNjk2IDE0Mi4xNzhDNDg2LjY5NiAxNDAuNzU1IDQ4Ni41MTkgMTM4LjA3MyA0ODQuOTEyIDEzNS40MDRaTTQ4MS42OTkgODYuNTIyOUM0NzguNjYzIDgxLjcwOTkgNDcyLjYwNSA4Mi4wNjM3IDQ3MS4xNzUgODIuMDYzN0g0NDguMzQ0VjEwMy4yOTFINDcwLjI4NEM0NzQuNTY1IDEwMy4yOTEgNDc5LjM3OCAxMDIuOTM3IDQ4MS44NzYgOTguNjU0OEM0ODMuMzA2IDk2LjUxIDQ4My4zMDYgOTMuODQxOCA0ODMuMzA2IDkyLjc2NTdDNDgzLjMwNiA4OS41NTIyIDQ4Mi40MTQgODcuNTkxNiA0ODEuNjk5IDg2LjUyMjlaIiBmaWxsPSIjZmZmZmZmIi8+CjxwYXRoIGQ9Ik02MjMuNDYzIDE4MS40MzNMNjE3LjkzNiAxNjMuNzc0SDU3NC4wNTdMNTY4LjUyOSAxODEuNDMzSDUyNS43MTlMNTczLjg4IDU1LjQ4NTVINjE5LjE4OUw2NjYuMjgxIDE4MS40MzNINjIzLjQ3MUg2MjMuNDYzWk01OTYuMzUgOTEuMzQzMkw1ODIuNjEzIDEzNS43NjZINjA5LjcyNkw1OTYuMzUgOTEuMzQzMloiIGZpbGw9IiNmZmZmZmYiLz4KPHBhdGggZD0iTTY3NSAxODEuNDMzVjU1LjQ4NTVINzE0Ljc4MVYxNDkuNjgxSDc2My40OFYxODEuNDMzSDY3NS4wMDdINjc1WiIgZmlsbD0iI2ZmZmZmZiIvPgo8cGF0aCBkPSJNNzc0LjEgMTgxLjQzM1Y1NS40ODU1SDgxMy44NzRWMTQ5LjY4MUg4NjIuNTc0VjE4MS40MzNINzc0LjFaIiBmaWxsPSIjZmZmZmZmIi8+CjxwYXRoIGQ9Ik05NzcuNzQgMjM3LjAwN0MxMDEwLjQ3IDIzNy4wMDcgMTAzNy4wMSAyMTAuNDcgMTAzNy4wMSAxNzcuNzMzQzEwMzcuMDEgMTQ0Ljk5NyAxMDEwLjQ3IDExOC40NTkgOTc3Ljc0IDExOC40NTlDOTQ1LjAwOCAxMTguNDU5IDkxOC40NzMgMTQ0Ljk5NyA5MTguNDczIDE3Ny43MzNDOTE4LjQ3MyAyMTAuNDcgOTQ1LjAwOCAyMzcuMDA3IDk3Ny43NCAyMzcuMDA3WiIgZmlsbD0iI2ZmZmZmZiIvPgo8cGF0aCBkPSJNODkxLjc5NCAyNi42ODE0VjIxMC4zMTlIMjYuNjc4NFYyNi42ODE0SDg5MS43OTRaTTkxOC40NzMgMEgwVjIzN0g5MTguNDczVjBaIiBmaWxsPSIjZmZmZmZmIi8+Cjwvc3ZnPgo=" alt="PALBALL"></noscript>
+        </button>
+      </div>
+      <div class="hero-caption grid">
+        <p>ONE NAME.<br>TWO PERSPECTIVES.</p>
+        <p id="logo-hint">CLICK TO CHANGE<br><span lang="ko">로고를 눌러보세요.</span></p>
+        <a class="hero-scroll" href="#work">EXPLORE THE ARCHIVE<br>SCROLL DOWN ↓</a>
+      </div>
+    </section>
+
+    <section class="work-section section" id="work" aria-labelledby="work-title">
+      <div class="section-heading grid">
+        <p class="section-marker">01 <span class="round-separator" aria-hidden="true"></span> WORK</p>
+        <h2 id="work-title">Selected<br><span class="heading-line">archive<span class="full-stop" aria-hidden="true"></span><span class="sr-only">.</span></span></h2>
+        <p class="section-aside">A COLLECTION OF<br>WORKS & EXPLORATIONS</p>
+      </div>
+      <div class="archive-toolbar grid">
+        <p>FILTER BY</p>
+        <div class="filters" role="group" aria-label="작업 분야 필터">
+          <button type="button" data-filter="all" aria-pressed="true">ALL <span>(01)</span></button>
+          <button type="button" data-filter="graphic" aria-pressed="false">GRAPHIC <span>(01)</span></button>
+          <button type="button" data-filter="editorial" aria-pressed="false">EDITORIAL <span>(00)</span></button>
+        </div>
+        <div class="view-switch" role="group" aria-label="작업 보기 방식">
+          <button type="button" data-view="index" aria-pressed="true">INDEX</button>
+          <button type="button" data-view="gallery" aria-pressed="false">GALLERY</button>
+        </div>
+      </div>
+      <div class="index-head grid" aria-hidden="true"><p>NO.</p><p>PROJECT</p><p>DISCIPLINE</p><p>TYPE</p></div>
+      <div id="project-list" class="project-list" aria-live="polite"></div>
+      <p class="empty-state" id="empty-state" hidden>편집디자인 작업은 곧 이곳에 기록됩니다.<br><button type="button" id="show-all">전체 작업 보기 ↗</button></p>
+      <div class="archive-end grid"><p>AN ONGOING ARCHIVE.</p><p>새로운 작업과 실험이<br>계속해서 기록됩니다.</p><p id="archive-count">01 PROJECT</p></div>
+    </section>
+
+    <section class="studio-section section" id="studio" aria-labelledby="studio-title">
+      <div class="section-heading grid"><p class="section-marker">02 <span class="round-separator" aria-hidden="true"></span> STUDIO</p><h2 id="studio-title">The final<br><span class="heading-line">full stop<span class="full-stop" aria-hidden="true"></span><span class="sr-only">.</span></span></h2><p class="section-aside">PALBALL<br>DESIGN EXPERIMENT LAB.</p></div>
+      <div class="studio-copy grid">
+        <div class="statement"><p>PALBALL은 마침표의 완결성을<br class="desktop-break"> 지향하는 디자인 실험실이다.</p><p>모든 공정이 끝나는 마지막 순간<br class="desktop-break"> 승패를 가르는 8볼의 결정력을 모티브로,<br class="desktop-break"> 평면적인 문제들을 밀도 있는<br class="desktop-break"> 단단한 구체로 응축하고자 한다.</p></div>
+      </div>
+    </section>
+
+    <section class="contact-section section" id="contact" aria-labelledby="contact-title">
+      <div class="section-heading grid"><p class="section-marker">03 <span class="round-separator" aria-hidden="true"></span> CONTACT</p><h2 id="contact-title">Let’s make<br><span class="heading-line">a full stop<span class="full-stop" aria-hidden="true"></span><span class="sr-only">.</span></span></h2></div>
+      <div class="contact-details grid"><p>FOR NEW PROJECTS<br>& CONVERSATIONS</p><p class="contact-person">원채영<br><span>PALLBALL</span></p><div class="contact-links"><a href="mailto:8palball@gmail.com">8palball@gmail.com ↗</a><a href="https://www.instagram.com/8palball/" target="_blank" rel="noopener noreferrer">INSTAGRAM @8palball ↗</a><button type="button" id="copy-email">COPY EMAIL ↗</button><span id="copy-status" role="status"></span></div></div>
+    </section>
+  </main>
+
+  <footer class="site-footer grid"><a href="#top" class="wordmark">PALBALL</a><p>© <span id="copyright-year">2026</span> PALBALL</p><p>GRAPHIC & EDITORIAL DESIGN</p><a href="#top">BACK TO TOP ↑</a></footer>
+
+  <dialog id="project-dialog" aria-labelledby="project-title">
+    <div class="project-detail">
+      <header class="detail-header grid"><span id="detail-index">01 <span class="round-separator" aria-hidden="true"></span> PROJECT</span><p id="detail-category">VISUAL IDENTITY</p><button type="button" id="close-project">CLOSE [ESC]</button></header>
+      <div class="detail-heading grid"><p>SELECTED WORK</p><h2 id="project-title"></h2></div>
+      <div id="detail-content"></div>
+      <footer class="detail-footer"><p>PALBALL <span class="round-separator" aria-hidden="true"></span> ARCHIVE</p><button type="button" id="back-to-index">BACK TO INDEX ↑</button></footer>
+    </div>
+  </dialog>
+  <div id="custom-cursor" aria-hidden="true" hidden><span></span><span></span><span></span></div>
+<script>
+window.PALBALL_LOGO = {"horizontal": ["M171.073 114.531C169.467 118.813 163.048 132.014 149.134 137.188C141.639 140.04 134.151 140.394 126.302 140.394H95.622V181.426H55.6635V55.4855H127.548C139.855 55.4855 151.271 56.3773 161.08 64.9419C173.741 75.8208 174.102 90.9894 174.102 96.5173C174.102 99.016 173.925 107.042 171.073 114.538V114.531ZM132.544 89.0215C128.616 81.8868 120.237 81.8868 118.092 81.8868H95.6147V114H118.269C118.807 114 122.728 113.823 125.403 112.932C128.97 111.686 134.497 107.757 134.497 97.7703C134.497 96.3404 134.497 92.5962 132.537 89.0289L132.544 89.0215Z", "M256.289 181.433L250.762 163.774H206.883L201.355 181.433H158.545L206.706 55.4855H252.015L299.107 181.433H256.297H256.289ZM229.176 91.3432L215.439 135.766H242.552L229.176 91.3432Z", "M307.833 181.433V55.4855H347.615V149.681H396.314V181.433H307.84H307.833Z", "M517.376 171.623C513.986 175.014 510.242 176.62 508.636 177.335C500.787 180.903 493.83 181.441 485.627 181.441H408.57V55.4855H483.129C486.696 55.4855 490.263 55.6624 493.83 56.2004C501.325 57.2692 510.242 60.4827 515.593 66.0106C516.661 67.2563 518.806 69.7549 520.589 73.5065C522.734 77.7888 523.803 82.6017 523.803 87.4221C523.803 91.5275 522.557 103.475 512.387 111.509C510.426 112.932 508.466 114.185 504 116.145L509.351 117.752C513.271 118.998 516.308 121.142 519.336 124.172C527.008 132.198 527.185 141.301 527.185 145.399C527.185 149.497 526.647 162.705 517.376 171.623ZM484.912 135.404C481.346 129.515 473.851 129.692 472.251 129.692H448.167V154.31H473.143C477.602 154.31 481.707 153.418 484.559 149.313C486.519 146.46 486.696 143.6 486.696 142.178C486.696 140.755 486.519 138.073 484.912 135.404ZM481.699 86.5229C478.663 81.7099 472.605 82.0637 471.175 82.0637H448.344V103.291H470.284C474.565 103.291 479.378 102.937 481.876 98.6548C483.306 96.51 483.306 93.8418 483.306 92.7657C483.306 89.5522 482.414 87.5916 481.699 86.5229Z", "M623.463 181.433L617.936 163.774H574.057L568.529 181.433H525.719L573.88 55.4855H619.189L666.281 181.433H623.471H623.463ZM596.35 91.3432L582.613 135.766H609.726L596.35 91.3432Z", "M675 181.433V55.4855H714.781V149.681H763.48V181.433H675.007H675Z", "M774.1 181.433V55.4855H813.874V149.681H862.574V181.433H774.1Z", "M977.74 237.007C1010.47 237.007 1037.01 210.47 1037.01 177.733C1037.01 144.997 1010.47 118.459 977.74 118.459C945.008 118.459 918.473 144.997 918.473 177.733C918.473 210.47 945.008 237.007 977.74 237.007Z", "M891.794 26.6814V210.319H26.6784V26.6814H891.794ZM918.473 0H0V237H918.473V0Z"], "stacked": ["M171.123 114.345C169.516 118.628 163.095 131.831 149.177 137.006C141.68 139.859 134.19 140.213 126.339 140.213H95.6499V181.252H55.6797V55.289H127.585C139.896 55.289 151.315 56.181 161.127 64.7471C173.792 75.628 174.153 90.7993 174.153 96.3282C174.153 98.8272 173.976 106.855 171.123 114.352V114.345ZM132.583 88.831C128.654 81.695 120.272 81.695 118.127 81.695H95.6426V113.814H118.304C118.842 113.814 122.764 113.637 125.44 112.745C129.008 111.499 134.537 107.57 134.537 97.5814C134.537 96.1512 134.537 92.4063 132.576 88.8384L132.583 88.831Z", "M256.268 181.259L250.739 163.596H206.847L201.318 181.259H158.495L206.67 55.289H251.992L299.099 181.259H256.275H256.268ZM229.147 91.1531L215.406 135.583H242.527L229.147 91.1531Z", "M307.407 181.259V55.289H347.2V149.501H395.913V181.259H307.414H307.407Z", "M164.864 319.091C161.473 322.482 157.728 324.089 156.121 324.804C148.27 328.372 141.311 328.911 133.106 328.911H56.0262V202.933H130.607C134.175 202.933 137.743 203.11 141.311 203.648C148.808 204.717 157.728 207.931 163.08 213.46C164.149 214.706 166.295 217.205 168.079 220.957C170.224 225.24 171.293 230.054 171.293 234.875C171.293 238.981 170.047 250.931 159.874 258.966C157.913 260.389 155.952 261.642 151.484 263.603L156.836 265.21C160.758 266.456 163.795 268.601 166.825 271.631C174.499 279.659 174.676 288.763 174.676 292.862C174.676 296.961 174.138 310.171 164.864 319.091ZM132.391 282.866C128.823 276.976 121.326 277.153 119.726 277.153H95.6352V301.775H120.618C125.078 301.775 129.185 300.883 132.037 296.777C133.998 293.924 134.175 291.063 134.175 289.641C134.175 288.218 133.998 285.534 132.391 282.866ZM129.177 233.976C126.14 229.162 120.08 229.516 118.65 229.516H95.8121V250.747H117.758C122.041 250.747 126.855 250.393 129.354 246.11C130.784 243.965 130.784 241.296 130.784 240.22C130.784 237.005 129.892 235.045 129.177 233.976Z", "M270.982 328.903L265.453 311.24H221.561L216.032 328.903H173.209L221.384 202.933H266.707L313.813 328.903H270.99H270.982ZM243.861 238.797L230.12 283.227H257.241L243.861 238.797Z", "M322.534 328.903V202.933H362.327V297.145H411.04V328.903H322.541H322.534Z", "M421.663 328.903V202.933H461.449V297.145H510.163V328.903H421.663Z", "M663.836 384.811C716.968 384.811 760.039 341.74 760.039 288.609C760.039 235.477 716.968 192.406 663.836 192.406C610.705 192.406 567.634 235.477 567.634 288.609C567.634 341.74 610.705 384.811 663.836 384.811Z", "M540.947 26.6861V357.793H26.6862V26.6861H540.947ZM567.634 0H0V384.48H567.634V0Z"]};
+
+</script>
+<script>
+/* Add real projects here. New entries automatically update the archive and filters.
+   category: "graphic" or "editorial". Images are optional; paths are relative to dist/.
+   Supply: id, title, category, discipline, type, description, images[]. */
+window.PALBALL_PROJECTS = [
+  {
+    id: "palball-identity",
+    title: "PALBALL",
+    category: "graphic",
+    discipline: "VISUAL IDENTITY",
+    type: "SELF-INITIATED",
+    description: "PALBALL은 마침표의 완결성을 지향하는 디자인 실험실이다. 모든 공정이 끝나는 마지막 순간 승패를 가르는 8볼의 결정력을 모티브로, 평면적인 문제들을 밀도 있는 단단한 구체로 응축하고자 한다.",
+    images: [
+      { src: "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAzNyIgaGVpZ2h0PSIyMzciIHZpZXdCb3g9IjAgMCAxMDM3IDIzNyIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZD0iTTE3MS4wNzMgMTE0LjUzMUMxNjkuNDY3IDExOC44MTMgMTYzLjA0OCAxMzIuMDE0IDE0OS4xMzQgMTM3LjE4OEMxNDEuNjM5IDE0MC4wNCAxMzQuMTUxIDE0MC4zOTQgMTI2LjMwMiAxNDAuMzk0SDk1LjYyMlYxODEuNDI2SDU1LjY2MzVWNTUuNDg1NUgxMjcuNTQ4QzEzOS44NTUgNTUuNDg1NSAxNTEuMjcxIDU2LjM3NzMgMTYxLjA4IDY0Ljk0MTlDMTczLjc0MSA3NS44MjA4IDE3NC4xMDIgOTAuOTg5NCAxNzQuMTAyIDk2LjUxNzNDMTc0LjEwMiA5OS4wMTYgMTczLjkyNSAxMDcuMDQyIDE3MS4wNzMgMTE0LjUzOFYxMTQuNTMxWk0xMzIuNTQ0IDg5LjAyMTVDMTI4LjYxNiA4MS44ODY4IDEyMC4yMzcgODEuODg2OCAxMTguMDkyIDgxLjg4NjhIOTUuNjE0N1YxMTRIMTE4LjI2OUMxMTguODA3IDExNCAxMjIuNzI4IDExMy44MjMgMTI1LjQwMyAxMTIuOTMyQzEyOC45NyAxMTEuNjg2IDEzNC40OTcgMTA3Ljc1NyAxMzQuNDk3IDk3Ljc3MDNDMTM0LjQ5NyA5Ni4zNDA0IDEzNC40OTcgOTIuNTk2MiAxMzIuNTM3IDg5LjAyODlMMTMyLjU0NCA4OS4wMjE1WiIgZmlsbD0iI2ZmZmZmZiIvPgo8cGF0aCBkPSJNMjU2LjI4OSAxODEuNDMzTDI1MC43NjIgMTYzLjc3NEgyMDYuODgzTDIwMS4zNTUgMTgxLjQzM0gxNTguNTQ1TDIwNi43MDYgNTUuNDg1NUgyNTIuMDE1TDI5OS4xMDcgMTgxLjQzM0gyNTYuMjk3SDI1Ni4yODlaTTIyOS4xNzYgOTEuMzQzMkwyMTUuNDM5IDEzNS43NjZIMjQyLjU1MkwyMjkuMTc2IDkxLjM0MzJaIiBmaWxsPSIjZmZmZmZmIi8+CjxwYXRoIGQ9Ik0zMDcuODMzIDE4MS40MzNWNTUuNDg1NUgzNDcuNjE1VjE0OS42ODFIMzk2LjMxNFYxODEuNDMzSDMwNy44NEgzMDcuODMzWiIgZmlsbD0iI2ZmZmZmZiIvPgo8cGF0aCBkPSJNNTE3LjM3NiAxNzEuNjIzQzUxMy45ODYgMTc1LjAxNCA1MTAuMjQyIDE3Ni42MiA1MDguNjM2IDE3Ny4zMzVDNTAwLjc4NyAxODAuOTAzIDQ5My44MyAxODEuNDQxIDQ4NS42MjcgMTgxLjQ0MUg0MDguNTdWNTUuNDg1NUg0ODMuMTI5QzQ4Ni42OTYgNTUuNDg1NSA0OTAuMjYzIDU1LjY2MjQgNDkzLjgzIDU2LjIwMDRDNTAxLjMyNSA1Ny4yNjkyIDUxMC4yNDIgNjAuNDgyNyA1MTUuNTkzIDY2LjAxMDZDNTE2LjY2MSA2Ny4yNTYzIDUxOC44MDYgNjkuNzU0OSA1MjAuNTg5IDczLjUwNjVDNTIyLjczNCA3Ny43ODg4IDUyMy44MDMgODIuNjAxNyA1MjMuODAzIDg3LjQyMjFDNTIzLjgwMyA5MS41Mjc1IDUyMi41NTcgMTAzLjQ3NSA1MTIuMzg3IDExMS41MDlDNTEwLjQyNiAxMTIuOTMyIDUwOC40NjYgMTE0LjE4NSA1MDQgMTE2LjE0NUw1MDkuMzUxIDExNy43NTJDNTEzLjI3MSAxMTguOTk4IDUxNi4zMDggMTIxLjE0MiA1MTkuMzM2IDEyNC4xNzJDNTI3LjAwOCAxMzIuMTk4IDUyNy4xODUgMTQxLjMwMSA1MjcuMTg1IDE0NS4zOTlDNTI3LjE4NSAxNDkuNDk3IDUyNi42NDcgMTYyLjcwNSA1MTcuMzc2IDE3MS42MjNaTTQ4NC45MTIgMTM1LjQwNEM0ODEuMzQ2IDEyOS41MTUgNDczLjg1MSAxMjkuNjkyIDQ3Mi4yNTEgMTI5LjY5Mkg0NDguMTY3VjE1NC4zMUg0NzMuMTQzQzQ3Ny42MDIgMTU0LjMxIDQ4MS43MDcgMTUzLjQxOCA0ODQuNTU5IDE0OS4zMTNDNDg2LjUxOSAxNDYuNDYgNDg2LjY5NiAxNDMuNiA0ODYuNjk2IDE0Mi4xNzhDNDg2LjY5NiAxNDAuNzU1IDQ4Ni41MTkgMTM4LjA3MyA0ODQuOTEyIDEzNS40MDRaTTQ4MS42OTkgODYuNTIyOUM0NzguNjYzIDgxLjcwOTkgNDcyLjYwNSA4Mi4wNjM3IDQ3MS4xNzUgODIuMDYzN0g0NDguMzQ0VjEwMy4yOTFINDcwLjI4NEM0NzQuNTY1IDEwMy4yOTEgNDc5LjM3OCAxMDIuOTM3IDQ4MS44NzYgOTguNjU0OEM0ODMuMzA2IDk2LjUxIDQ4My4zMDYgOTMuODQxOCA0ODMuMzA2IDkyLjc2NTdDNDgzLjMwNiA4OS41NTIyIDQ4Mi40MTQgODcuNTkxNiA0ODEuNjk5IDg2LjUyMjlaIiBmaWxsPSIjZmZmZmZmIi8+CjxwYXRoIGQ9Ik02MjMuNDYzIDE4MS40MzNMNjE3LjkzNiAxNjMuNzc0SDU3NC4wNTdMNTY4LjUyOSAxODEuNDMzSDUyNS43MTlMNTczLjg4IDU1LjQ4NTVINjE5LjE4OUw2NjYuMjgxIDE4MS40MzNINjIzLjQ3MUg2MjMuNDYzWk01OTYuMzUgOTEuMzQzMkw1ODIuNjEzIDEzNS43NjZINjA5LjcyNkw1OTYuMzUgOTEuMzQzMloiIGZpbGw9IiNmZmZmZmYiLz4KPHBhdGggZD0iTTY3NSAxODEuNDMzVjU1LjQ4NTVINzE0Ljc4MVYxNDkuNjgxSDc2My40OFYxODEuNDMzSDY3NS4wMDdINjc1WiIgZmlsbD0iI2ZmZmZmZiIvPgo8cGF0aCBkPSJNNzc0LjEgMTgxLjQzM1Y1NS40ODU1SDgxMy44NzRWMTQ5LjY4MUg4NjIuNTc0VjE4MS40MzNINzc0LjFaIiBmaWxsPSIjZmZmZmZmIi8+CjxwYXRoIGQ9Ik05NzcuNzQgMjM3LjAwN0MxMDEwLjQ3IDIzNy4wMDcgMTAzNy4wMSAyMTAuNDcgMTAzNy4wMSAxNzcuNzMzQzEwMzcuMDEgMTQ0Ljk5NyAxMDEwLjQ3IDExOC40NTkgOTc3Ljc0IDExOC40NTlDOTQ1LjAwOCAxMTguNDU5IDkxOC40NzMgMTQ0Ljk5NyA5MTguNDczIDE3Ny43MzNDOTE4LjQ3MyAyMTAuNDcgOTQ1LjAwOCAyMzcuMDA3IDk3Ny43NCAyMzcuMDA3WiIgZmlsbD0iI2ZmZmZmZiIvPgo8cGF0aCBkPSJNODkxLjc5NCAyNi42ODE0VjIxMC4zMTlIMjYuNjc4NFYyNi42ODE0SDg5MS43OTRaTTkxOC40NzMgMEgwVjIzN0g5MTguNDczVjBaIiBmaWxsPSIjZmZmZmZmIi8+Cjwvc3ZnPgo=", alt: "PALBALL 가로형 로고", caption: "HORIZONTAL ● 가로형", layout: "horizontal" },
+      { src: "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNzYxIiBoZWlnaHQ9IjM4NSIgdmlld0JveD0iMCAwIDc2MSAzODUiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxwYXRoIGQ9Ik0xNzEuMTIzIDExNC4zNDVDMTY5LjUxNiAxMTguNjI4IDE2My4wOTUgMTMxLjgzMSAxNDkuMTc3IDEzNy4wMDZDMTQxLjY4IDEzOS44NTkgMTM0LjE5IDE0MC4yMTMgMTI2LjMzOSAxNDAuMjEzSDk1LjY0OTlWMTgxLjI1Mkg1NS42Nzk3VjU1LjI4OUgxMjcuNTg1QzEzOS44OTYgNTUuMjg5IDE1MS4zMTUgNTYuMTgxIDE2MS4xMjcgNjQuNzQ3MUMxNzMuNzkyIDc1LjYyOCAxNzQuMTUzIDkwLjc5OTMgMTc0LjE1MyA5Ni4zMjgyQzE3NC4xNTMgOTguODI3MiAxNzMuOTc2IDEwNi44NTUgMTcxLjEyMyAxMTQuMzUyVjExNC4zNDVaTTEzMi41ODMgODguODMxQzEyOC42NTQgODEuNjk1IDEyMC4yNzIgODEuNjk1IDExOC4xMjcgODEuNjk1SDk1LjY0MjZWMTEzLjgxNEgxMTguMzA0QzExOC44NDIgMTEzLjgxNCAxMjIuNzY0IDExMy42MzcgMTI1LjQ0IDExMi43NDVDMTI5LjAwOCAxMTEuNDk5IDEzNC41MzcgMTA3LjU3IDEzNC41MzcgOTcuNTgxNEMxMzQuNTM3IDk2LjE1MTIgMTM0LjUzNyA5Mi40MDYzIDEzMi41NzYgODguODM4NEwxMzIuNTgzIDg4LjgzMVoiIGZpbGw9IiNmZmZmZmYiLz4KPHBhdGggZD0iTTI1Ni4yNjggMTgxLjI1OUwyNTAuNzM5IDE2My41OTZIMjA2Ljg0N0wyMDEuMzE4IDE4MS4yNTlIMTU4LjQ5NUwyMDYuNjcgNTUuMjg5SDI1MS45OTJMMjk5LjA5OSAxODEuMjU5SDI1Ni4yNzVIMjU2LjI2OFpNMjI5LjE0NyA5MS4xNTMxTDIxNS40MDYgMTM1LjU4M0gyNDIuNTI3TDIyOS4xNDcgOTEuMTUzMVoiIGZpbGw9IiNmZmZmZmYiLz4KPHBhdGggZD0iTTMwNy40MDcgMTgxLjI1OVY1NS4yODlIMzQ3LjJWMTQ5LjUwMUgzOTUuOTEzVjE4MS4yNTlIMzA3LjQxNEgzMDcuNDA3WiIgZmlsbD0iI2ZmZmZmZiIvPgo8cGF0aCBkPSJNMTY0Ljg2NCAzMTkuMDkxQzE2MS40NzMgMzIyLjQ4MiAxNTcuNzI4IDMyNC4wODkgMTU2LjEyMSAzMjQuODA0QzE0OC4yNyAzMjguMzcyIDE0MS4zMTEgMzI4LjkxMSAxMzMuMTA2IDMyOC45MTFINTYuMDI2MlYyMDIuOTMzSDEzMC42MDdDMTM0LjE3NSAyMDIuOTMzIDEzNy43NDMgMjAzLjExIDE0MS4zMTEgMjAzLjY0OEMxNDguODA4IDIwNC43MTcgMTU3LjcyOCAyMDcuOTMxIDE2My4wOCAyMTMuNDZDMTY0LjE0OSAyMTQuNzA2IDE2Ni4yOTUgMjE3LjIwNSAxNjguMDc5IDIyMC45NTdDMTcwLjIyNCAyMjUuMjQgMTcxLjI5MyAyMzAuMDU0IDE3MS4yOTMgMjM0Ljg3NUMxNzEuMjkzIDIzOC45ODEgMTcwLjA0NyAyNTAuOTMxIDE1OS44NzQgMjU4Ljk2NkMxNTcuOTEzIDI2MC4zODkgMTU1Ljk1MiAyNjEuNjQyIDE1MS40ODQgMjYzLjYwM0wxNTYuODM2IDI2NS4yMUMxNjAuNzU4IDI2Ni40NTYgMTYzLjc5NSAyNjguNjAxIDE2Ni44MjUgMjcxLjYzMUMxNzQuNDk5IDI3OS42NTkgMTc0LjY3NiAyODguNzYzIDE3NC42NzYgMjkyLjg2MkMxNzQuNjc2IDI5Ni45NjEgMTc0LjEzOCAzMTAuMTcxIDE2NC44NjQgMzE5LjA5MVpNMTMyLjM5MSAyODIuODY2QzEyOC44MjMgMjc2Ljk3NiAxMjEuMzI2IDI3Ny4xNTMgMTE5LjcyNiAyNzcuMTUzSDk1LjYzNTJWMzAxLjc3NUgxMjAuNjE4QzEyNS4wNzggMzAxLjc3NSAxMjkuMTg1IDMwMC44ODMgMTMyLjAzNyAyOTYuNzc3QzEzMy45OTggMjkzLjkyNCAxMzQuMTc1IDI5MS4wNjMgMTM0LjE3NSAyODkuNjQxQzEzNC4xNzUgMjg4LjIxOCAxMzMuOTk4IDI4NS41MzQgMTMyLjM5MSAyODIuODY2Wk0xMjkuMTc3IDIzMy45NzZDMTI2LjE0IDIyOS4xNjIgMTIwLjA4IDIyOS41MTYgMTE4LjY1IDIyOS41MTZIOTUuODEyMVYyNTAuNzQ3SDExNy43NThDMTIyLjA0MSAyNTAuNzQ3IDEyNi44NTUgMjUwLjM5MyAxMjkuMzU0IDI0Ni4xMUMxMzAuNzg0IDI0My45NjUgMTMwLjc4NCAyNDEuMjk2IDEzMC43ODQgMjQwLjIyQzEzMC43ODQgMjM3LjAwNSAxMjkuODkyIDIzNS4wNDUgMTI5LjE3NyAyMzMuOTc2WiIgZmlsbD0iI2ZmZmZmZiIvPgo8cGF0aCBkPSJNMjcwLjk4MiAzMjguOTAzTDI2NS40NTMgMzExLjI0SDIyMS41NjFMMjE2LjAzMiAzMjguOTAzSDE3My4yMDlMMjIxLjM4NCAyMDIuOTMzSDI2Ni43MDdMMzEzLjgxMyAzMjguOTAzSDI3MC45OUgyNzAuOTgyWk0yNDMuODYxIDIzOC43OTdMMjMwLjEyIDI4My4yMjdIMjU3LjI0MUwyNDMuODYxIDIzOC43OTdaIiBmaWxsPSIjZmZmZmZmIi8+CjxwYXRoIGQ9Ik0zMjIuNTM0IDMyOC45MDNWMjAyLjkzM0gzNjIuMzI3VjI5Ny4xNDVINDExLjA0VjMyOC45MDNIMzIyLjU0MUgzMjIuNTM0WiIgZmlsbD0iI2ZmZmZmZiIvPgo8cGF0aCBkPSJNNDIxLjY2MyAzMjguOTAzVjIwMi45MzNINDYxLjQ0OVYyOTcuMTQ1SDUxMC4xNjNWMzI4LjkwM0g0MjEuNjYzWiIgZmlsbD0iI2ZmZmZmZiIvPgo8cGF0aCBkPSJNNjYzLjgzNiAzODQuODExQzcxNi45NjggMzg0LjgxMSA3NjAuMDM5IDM0MS43NCA3NjAuMDM5IDI4OC42MDlDNzYwLjAzOSAyMzUuNDc3IDcxNi45NjggMTkyLjQwNiA2NjMuODM2IDE5Mi40MDZDNjEwLjcwNSAxOTIuNDA2IDU2Ny42MzQgMjM1LjQ3NyA1NjcuNjM0IDI4OC42MDlDNTY3LjYzNCAzNDEuNzQgNjEwLjcwNSAzODQuODExIDY2My44MzYgMzg0LjgxMVoiIGZpbGw9IiNmZmZmZmYiLz4KPHBhdGggZD0iTTU0MC45NDcgMjYuNjg2MVYzNTcuNzkzSDI2LjY4NjJWMjYuNjg2MUg1NDAuOTQ3Wk01NjcuNjM0IDBIMFYzODQuNDhINTY3LjYzNFYwWiIgZmlsbD0iI2ZmZmZmZiIvPgo8L3N2Zz4K", alt: "PALBALL 두 줄형 로고", caption: "STACKED ● 두 줄형", layout: "stacked" }
+    ]
+  }
+];
+
+</script>
+<script>
+(() => {
+  "use strict";
+  const $ = (selector) => document.querySelector(selector);
+  const $$ = (selector) => [...document.querySelectorAll(selector)];
+  const reduceMotion = matchMedia("(prefers-reduced-motion: reduce)");
+  const svg = $("#interactive-logo");
+  const toggle = $("#logo-toggle");
+  const logo = window.PALBALL_LOGO;
+  const ns = "http://www.w3.org/2000/svg";
+  const numberPattern = /[-+]?(?:\d*\.\d+|\d+)(?:e[-+]?\d+)?/gi;
+  // Keep both endpoint logos in a fixed viewport. PAL travels vertically first,
+  // then horizontally; BALL can move underneath it without crossing letters.
+  const groups = ["pal", "ball", "dot", "frame"].map((name) => {
+    const group = document.createElementNS(ns, "g");
+    group.dataset.part = name;
+    svg.append(group);
+    return group;
+  });
+  const shapes = logo.horizontal.map((path, i) => {
+    const el = document.createElementNS(ns, "path");
+    el.setAttribute("d", path);
+    el.setAttribute("fill", "#ffffff");
+    groups[i < 3 ? 0 : i < 7 ? 1 : i === 7 ? 2 : 3].append(el);
+    const fromBox = el.getBBox();
+    el.setAttribute("d", logo.stacked[i]);
+    const toBox = el.getBBox();
+    el.setAttribute("d", path);
+    return { el, template: path, from: path.match(numberPattern).map(Number), to: logo.stacked[i].match(numberPattern).map(Number), fromBox, toBox };
+  });
+  let progress = 0, target = 0, frame = 0;
+  let viewport = { width: 0, height: 0 };
+  const mix = (a, b, t) => a + (b - a) * t;
+  const ease = (t) => {
+    t = Math.max(0, Math.min(t, 1));
+    return t < .5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
+  };
+  const origins = [[0, 3], [3, 7], [7, 8]].map(([start, end]) => {
+    const subset = shapes.slice(start, end);
+    return ["fromBox", "toBox"].map(key => ({
+      x: Math.min(...subset.map(shape => shape[key].x)),
+      y: Math.min(...subset.map(shape => shape[key].y))
+    }));
+  });
+  const paintLogo = (value) => {
+    progress = value;
+    const { width, height } = viewport;
+    if (!width || !height) return;
+    const vertical = ease(value / .46);
+    const horizontal = ease((value - .46) / .54);
+    // A shared scale keeps every PAL point on the same x coordinate on its
+    // vertical leg. Separate endpoint fitting was visibly shrinking the word.
+    const scale = Math.min(width / 1037, height / 385);
+    const fit = (w, h) => {
+      return { scale, x: (width - w * scale) / 2, y: (height - h * scale) / 2 };
+    };
+    const fromFit = fit(1037, 237), toFit = fit(761, 385);
+    shapes.slice(0, 8).forEach(({el, template, from, to}, i) => {
+      let index = 0;
+      el.setAttribute("d", template.replace(numberPattern, () => {
+        const n = mix(from[index], to[index], horizontal);
+        index++;
+        return n.toFixed(4);
+      }));
+    });
+    origins.forEach(([from, to], i) => {
+      const x = mix(fromFit.x + from.x * fromFit.scale, toFit.x + to.x * toFit.scale, horizontal);
+      let y = mix(fromFit.y + from.y * fromFit.scale, toFit.y + to.y * toFit.scale, vertical);
+      if (i === 2) {
+        // Grow the circle upwards from the frame's bottom edge. Its diameter
+        // stays unchanged until the horizontal leg and shrinks on this anchor.
+        const baseline = mix(fromFit.y + 237 * scale, toFit.y + 384.48 * scale, vertical);
+        const diameter = mix(shapes[7].fromBox.height, shapes[7].toBox.height, horizontal) * scale;
+        y = baseline - diameter;
+      }
+      groups[i].setAttribute("transform", `translate(${x} ${y}) scale(${scale}) translate(${-mix(from.x, to.x, horizontal)} ${-mix(from.y, to.y, horizontal)})`);
+    });
+    // Expand the frame vertically before closing it horizontally around the words.
+    const outline = shapes[8];
+    const axes = ["x", "y", "y", "x", "y", "x", "x", "y", "x", "y", "x", "y"];
+    let index = 0;
+    outline.el.setAttribute("d", outline.template.replace(numberPattern, () => {
+      const axis = axes[index];
+      const a = outline.from[index] * fromFit.scale + fromFit[axis];
+      const b = outline.to[index] * toFit.scale + toFit[axis];
+      index++;
+      return mix(a, b, axis === "x" ? horizontal : vertical).toFixed(4);
+    }));
+    svg.setAttribute("viewBox", `0 0 ${width} ${height}`);
+  };
+  const resizeLogo = () => {
+    const { width, height } = svg.getBoundingClientRect();
+    if (width === viewport.width && height === viewport.height) return;
+    viewport = { width, height };
+    paintLogo(progress);
+  };
+  new ResizeObserver(resizeLogo).observe(svg);
+  resizeLogo();
+  toggle.addEventListener("click", () => {
+    cancelAnimationFrame(frame);
+    target = target ? 0 : 1;
+    toggle.setAttribute("aria-pressed", String(Boolean(target)));
+    toggle.setAttribute("aria-label", `로고 배리에이션 전환. 현재 ${target ? "두 줄형" : "가로형"}`);
+    if (reduceMotion.matches) return paintLogo(target);
+    const start = performance.now(), from = progress, destination = target;
+    const duration = 1280 * Math.abs(destination - from);
+    const animate = (now) => {
+      const t = duration ? Math.min((now - start) / duration, 1) : 1;
+      paintLogo(mix(from, destination, t));
+      if (t < 1) frame = requestAnimationFrame(animate);
+    };
+    frame = requestAnimationFrame(animate);
+  });
+
+  const projects = window.PALBALL_PROJECTS || [];
+  const list = $("#project-list"), dialog = $("#project-dialog");
+  let filter = "all", view = "index", previousFocus;
+  const pad = (n) => String(n).padStart(2, "0");
+  const element = (tag, className, text) => {
+    const el = document.createElement(tag);
+    if (className) el.className = className;
+    if (text !== undefined) el.textContent = text;
+    return el;
+  };
+  const separatedText = (node, parts) => {
+    node.replaceChildren();
+    parts.forEach((part, index) => {
+      if (index) {
+        const dot = element("span", "round-separator");
+        dot.setAttribute("aria-hidden", "true");
+        node.append(" ", dot, " ");
+      }
+      node.append(String(part));
+    });
+    return node;
+  };
+
+  // Three coincident blend layers remap the two brand colors exactly:
+  // difference inverts; color-dodge restores white; lighten restores #181818.
+  const cursor = $("#custom-cursor");
+  const finePointer = matchMedia("(hover: hover) and (pointer: fine)");
+  const cursorSupported = CSS.supports("mix-blend-mode", "color-dodge");
+  const hideCursor = () => {
+    cursor.hidden = true;
+    document.documentElement.classList.remove("has-custom-cursor");
+  };
+  document.addEventListener("pointermove", (event) => {
+    if (!finePointer.matches || !cursorSupported || event.pointerType === "touch") return hideCursor();
+    cursor.style.setProperty("--cursor-x", `${event.clientX}px`);
+    cursor.style.setProperty("--cursor-y", `${event.clientY}px`);
+    cursor.hidden = false;
+    document.documentElement.classList.add("has-custom-cursor");
+  }, { passive: true });
+  document.documentElement.addEventListener("pointerleave", hideCursor);
+  window.addEventListener("blur", hideCursor);
+  finePointer.addEventListener("change", hideCursor);
+  const countBy = (category) => projects.filter(p => category === "all" || p.category === category).length;
+  $$(".work-count").forEach(el => el.textContent = `(${pad(projects.length)})`);
+  $$("[data-filter]").forEach(button => {
+    button.querySelector("span").textContent = `(${pad(countBy(button.dataset.filter))})`;
+    button.addEventListener("click", () => { filter = button.dataset.filter; renderArchive(); });
+  });
+  $$("[data-view]").forEach(button => button.addEventListener("click", () => { view = button.dataset.view; renderArchive(); }));
+  const renderArchive = () => {
+    list.replaceChildren();
+    list.classList.toggle("gallery", view === "gallery");
+    $(".index-head").hidden = view === "gallery";
+    const visible = projects.filter(p => filter === "all" || p.category === filter);
+    visible.forEach(project => {
+      const index = projects.indexOf(project);
+      const row = element("button", "project-row grid");
+      row.type = "button";
+      row.setAttribute("aria-label", `${project.title} 프로젝트 상세 보기`);
+      if (project.images?.[0]) {
+        const preview = element("span", "gallery-preview");
+        const img = document.createElement("img");
+        img.src = project.images[0].src; img.alt = ""; img.loading = "lazy";
+        preview.append(img); row.append(preview);
+      }
+      row.append(element("span", "project-number", pad(index + 1)), element("span", "project-name", project.title), element("span", "project-category", project.discipline), element("span", "project-type", project.type));
+      row.addEventListener("click", () => openProject(project, index));
+      list.append(row);
+    });
+    $("#empty-state").hidden = visible.length !== 0;
+    $("#archive-count").textContent = `${pad(visible.length)} ${visible.length === 1 ? "PROJECT" : "PROJECTS"}`;
+    $$("[data-filter]").forEach(button => button.setAttribute("aria-pressed", String(button.dataset.filter === filter)));
+    $$("[data-view]").forEach(button => button.setAttribute("aria-pressed", String(button.dataset.view === view)));
+  };
+  $("#show-all").addEventListener("click", () => { filter = "all"; renderArchive(); $("[data-filter=all]").focus(); });
+
+  const openProject = (project, index) => {
+    previousFocus = document.activeElement;
+    $("#project-title").textContent = project.title;
+    separatedText($("#detail-index"), [pad(index + 1), "PROJECT"]);
+    $("#detail-category").textContent = project.discipline;
+    const content = $("#detail-content"); content.replaceChildren();
+    const description = element("div", "detail-description grid");
+    description.append(element("p", "", project.description)); content.append(description);
+    const meta = element("div", "detail-meta grid");
+    meta.append(separatedText(element("p"), ["DISCIPLINE", project.discipline]), separatedText(element("p"), ["TYPE", project.type])); content.append(meta);
+    (project.images || []).forEach((item, i) => {
+      const figure = element("div", `detail-logo ${item.layout || ""}`);
+      const img = document.createElement("img"); img.src = item.src; img.alt = item.alt || project.title; img.loading = "lazy";
+      figure.append(img); content.append(figure);
+      const caption = element("div", "image-caption grid");
+      caption.append(separatedText(element("p"), [pad(i + 1), pad(project.images.length)]), separatedText(element("p"), (item.caption || "").split(/\s*[●/]\s*/))); content.append(caption);
+    });
+    dialog.showModal(); document.body.classList.add("dialog-open"); dialog.scrollTop = 0;
+    dialog.append(cursor);
+    $("#close-project").focus({preventScroll:true});
+  };
+  const closeProject = () => dialog.close();
+  $("#close-project").addEventListener("click", closeProject);
+  $("#back-to-index").addEventListener("click", closeProject);
+  dialog.addEventListener("close", () => { document.body.append(cursor); document.body.classList.remove("dialog-open"); previousFocus?.focus({preventScroll:true}); });
+  $("#copy-email").addEventListener("click", async () => {
+    try {
+      await navigator.clipboard.writeText("8palball@gmail.com");
+      $("#copy-status").textContent = "이메일 주소를 복사했습니다.";
+    } catch {
+      $("#copy-status").textContent = "8palball@gmail.com 주소를 선택해 복사해주세요.";
+    }
+  });
+  $("#copyright-year").textContent = new Date().getFullYear();
+  renderArchive();
+})();
+
+</script>
+</body>
+</html>

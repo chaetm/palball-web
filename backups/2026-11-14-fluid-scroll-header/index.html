@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#181818">
+  <meta name="description" content="PALBALL은 마침표의 완결성을 지향하는 디자인 실험실이다. 그래픽과 편집디자인의 작업과 실험을 기록한다.">
+  <meta property="og:title" content="PALBALL — Graphic & Editorial Design">
+  <meta property="og:description" content="마침표의 완결성을 지향하는 디자인 실험실.">
+  <title>PALBALL — Graphic & Editorial Design</title>
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="styles.css">
+  <script src="logo-data.js" defer></script>
+  <script src="projects.js" defer></script>
+  <script src="app.js" defer></script>
+</head>
+<body data-page="home">
+  <a class="skip-link" href="#main-content">본문으로 바로가기</a>
+  <header class="site-header grid">
+    <a class="wordmark" href="#home" data-page-link aria-label="PALBALL 처음으로">PALBALL</a>
+    <nav aria-label="주요 메뉴">
+      <a href="#works" data-page-link>WORKS</a>
+      <a href="#about" data-page-link>ABOUT</a>
+    </nav>
+  </header>
+
+  <main id="main-content" tabindex="-1">
+    <section class="hero" data-page="home" aria-labelledby="hero-title">
+      <h1 id="hero-title" class="sr-only" tabindex="-1">PALBALL. 마침표의 완결성을 지향하는 디자인 실험실.</h1>
+      <div class="hero-stage">
+        <button class="logo-toggle" id="logo-toggle" type="button" aria-label="로고 배리에이션 전환. 현재 가로형" aria-describedby="logo-hint" aria-pressed="false">
+          <svg id="interactive-logo" viewBox="0 0 1037 237" role="img" aria-label="PALBALL 로고"><title>PALBALL</title></svg>
+          <noscript><img src="assets/palball-horizontal.svg" alt="PALBALL"></noscript>
+        </button>
+      </div>
+      <div class="hero-caption grid">
+        <p>ONE NAME.<br>TWO PERSPECTIVES.</p>
+        <p id="logo-hint">CLICK TO CHANGE<br><span lang="ko">로고를 눌러보세요.</span></p>
+      </div>
+    </section>
+
+    <section class="work-section section page-section" data-page="works" aria-labelledby="work-title" hidden>
+      <h1 id="work-title" class="sr-only" tabindex="-1">WORKS</h1>
+      <div class="archive-toolbar grid">
+        <div class="archive-search" role="search">
+          <label class="sr-only" for="project-search">작업명 검색</label>
+          <input id="project-search" type="search" placeholder="SEARCH" autocomplete="off" spellcheck="false">
+        </div>
+        <div class="filters" role="group" aria-label="작업 분야 필터">
+          <button type="button" data-filter="all" aria-pressed="true">ALL <span>(03)</span></button>
+          <button type="button" data-filter="graphic" aria-pressed="false">GRAPHIC <span>(03)</span></button>
+          <button type="button" data-filter="editorial" aria-pressed="false">EDITORIAL <span>(02)</span></button>
+        </div>
+        <div class="view-switch" role="group" aria-label="작업 보기 방식">
+          <button type="button" data-view="gallery" aria-pressed="true">GALLERY</button>
+          <button type="button" data-view="index" aria-pressed="false">INDEX</button>
+        </div>
+      </div>
+      <div id="index-preview" class="index-preview grid" aria-hidden="true" hidden><img alt=""></div>
+      <div id="project-list" class="project-list gallery" aria-live="polite"></div>
+      <p class="empty-state" id="empty-state" hidden><span>검색 조건에 맞는 작업물이 없습니다.</span><br><button type="button" id="show-all">전체 작업 보기 ↗</button></p>
+      <div class="archive-end grid"><p>AN ONGOING ARCHIVE.</p><p>새로운 작업과 실험이<br>계속해서 기록됩니다.</p><p id="archive-count">03 PROJECTS</p></div>
+    </section>
+
+    <section class="studio-section section page-section" data-page="about" aria-labelledby="studio-title" hidden>
+      <div class="section-heading grid"><p class="section-marker">ABOUT</p><h1 id="studio-title" tabindex="-1">The final<br><span class="heading-line">full stop<span class="full-stop" aria-hidden="true"></span><span class="sr-only">.</span></span></h1><p class="section-aside">PALBALL<br>DESIGN EXPERIMENT LAB.</p></div>
+      <div class="studio-copy grid">
+        <div class="statement"><p>PALBALL은 마침표의 완결성을<br class="desktop-break"> 지향하는 디자인 실험실이다.</p><p>모든 공정이 끝나는 마지막 순간<br class="desktop-break"> 승패를 가르는 8볼의 결정력을 모티브로,<br class="desktop-break"> 평면적인 문제들을 밀도 있는<br class="desktop-break"> 단단한 구체로 응축하고자 한다.</p></div>
+      </div>
+      <section class="contact-section" aria-labelledby="contact-title">
+        <div class="contact-heading grid"><p class="section-marker">CONTACT</p><h2 id="contact-title">Let’s make a full stop<span class="full-stop" aria-hidden="true"></span><span class="sr-only">.</span></h2></div>
+        <div class="contact-details grid"><p>FOR NEW PROJECTS<br>& CONVERSATIONS</p><p class="contact-person">원채영<br><span>CHAEYEONG WON</span></p><div class="contact-links"><a href="mailto:8palball@gmail.com">8palball@gmail.com ↗</a><a href="https://www.instagram.com/8palball/" target="_blank" rel="noopener noreferrer">INSTAGRAM @8palball ↗</a><button type="button" id="copy-email">COPY EMAIL ↗</button><span id="copy-status" role="status"></span></div></div>
+      </section>
+    </section>
+  </main>
+
+  <footer class="site-footer grid" hidden><a href="#home" data-page-link class="wordmark">PALBALL</a><p>© <span id="copyright-year">2026</span> PALBALL</p><button type="button" id="back-to-top">BACK TO TOP ↑</button></footer>
+
+  <main id="project-page" class="project-page" aria-labelledby="project-title" tabindex="-1" hidden>
+    <header class="detail-header grid"><a class="wordmark" id="detail-home" href="#home" data-page-link aria-label="PALBALL 처음으로">PALBALL</a><button type="button" id="close-project">CLOSE [ESC]</button></header>
+    <div class="project-detail">
+      <div class="detail-heading grid"><p>SELECTED WORK</p><h2 id="project-title"></h2></div>
+      <div id="detail-content"></div>
+      <footer class="detail-footer"><p>PALBALL <span class="round-separator" aria-hidden="true"></span> ARCHIVE</p><button type="button" id="detail-back-to-top">BACK TO TOP ↑</button></footer>
+    </div>
+  </main>
+  <svg class="ink-filter-defs" xmlns="http://www.w3.org/2000/svg" width="0" height="0" aria-hidden="true" focusable="false">
+    <defs><filter id="header-contrast" color-interpolation-filters="sRGB">
+      <feColorMatrix type="saturate" values="0"/>
+      <feComponentTransfer>
+        <feFuncR type="discrete" tableValues="1 0.09411764705882353"/>
+        <feFuncG type="discrete" tableValues="1 0.09411764705882353"/>
+        <feFuncB type="discrete" tableValues="1 0.09411764705882353"/>
+      </feComponentTransfer>
+    </filter></defs>
+  </svg>
+  <div id="custom-cursor" aria-hidden="true" hidden><span></span></div>
+</body>
+</html>
